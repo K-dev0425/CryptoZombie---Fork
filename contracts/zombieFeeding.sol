@@ -1,4 +1,4 @@
-pragma solidity ^0.8.0;
+pragma solidity >=0.5.0 <0.6.0;
 
 import "./zombieFactory.sol";
 
@@ -18,9 +18,6 @@ contract KittyInterface {
 }
 
 contract ZombieFeeding is ZombieFactory {
-    function ZombieFeeding(){
-
-    }
 
     KittyInterface kittyContract;
 

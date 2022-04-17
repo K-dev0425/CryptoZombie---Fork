@@ -1,13 +1,12 @@
-pragma solidity ^0.8.0;
+pragma solidity >=0.5.0 <0.6.0;
 
 import "./ownable.sol";
-import "./safemath.sol";
-import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
+import "./library/safemath.sol";
+import "./library/safemath32.sol";
+import "./library/safemath16.sol";
+//import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 
 contract ZombieFactory is Ownable {
-    function ZombieFactory(){
-
-    }
 
     using SafeMath for uint256;
     using SafeMath32 for uint32;
@@ -34,7 +33,7 @@ contract ZombieFactory is Ownable {
     mapping (address => uint) ownerZombieCount;
 
     function _createZombie(string memory _name, uint _dna) internal {
-        uint id = zombies.push(_name, _dna, 1, uint32(now + cooldownTime), 0, 0) - 1;
+        uint id = zombies.push(Zombie(_name, _dna, 1, uint32(now + cooldownTime), 0, 0)) - 1;
         zombieToOwner[id] = msg.sender;
         ownerZombieCount[msg.sender] = ownerZombieCount[msg.sender].add(1);
         emit NewZombie(id, _name, _dna);
